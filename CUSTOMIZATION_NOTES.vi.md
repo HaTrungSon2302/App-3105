@@ -100,3 +100,14 @@ Workflow hiện tạo IPA **unsigned**.
 - Trang chủ được làm lại theo bố cục dashboard: logo + tên Tizi Mod, thông tin iOS/thiết bị/tương thích, lưới ứng dụng hỗ trợ, trạng thái key và nút đổi key.
 - Màu giao diện dashboard: nền navy đậm kết hợp xanh nước biển nhạt/cyan theo nhận diện Tizi Mod.
 - Next DNS có ô lưu Profile ID, tạo địa chỉ DoH và nút sao chép/mở dashboard NextDNS.
+
+## Key Server đầy đủ
+
+Bản này bổ sung thư mục `key-server/` và kết nối app với server key.
+
+- Key hiển thị mã đã che, thời gian còn lại và ngày giờ hết hạn trên Trang Chủ.
+- App lưu session token trong Keychain và kiểm tra trạng thái server định kỳ.
+- Admin server có tạo key theo giờ/ngày/tuần/tháng, giới hạn thiết bị, cộng/trừ thời gian, đặt ngày hết hạn, khóa/mở khóa, reset máy, xóa key, xuất CSV và nhật ký.
+- Sửa `TiziKeyServerURL` trong `ThreeOneOSFive/Info.plist` thành domain HTTPS của server trước khi build bản Release.
+
+Xem `KEY_SERVER_GUIDE.vi.md` để cài server.

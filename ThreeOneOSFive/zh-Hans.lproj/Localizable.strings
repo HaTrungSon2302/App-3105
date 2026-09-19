@@ -494,3 +494,12 @@
 "nextdns.copy" = "复制 DoH";
 "nextdns.copied" = "已复制";
 "nextdns.open_dashboard" = "打开 NextDNS 控制台";
+
+"activation.error.not_configured" = "尚未在 Info.plist 中配置 Key Server 地址。";
+"activation.time_unknown" = "暂无到期时间";
+"activation.expired" = "密钥已过期";
+"home.key_expires" = "到期：%@";
+
+"activation.key_label" = "密钥";
+"activation.remaining_label" = "剩余时间";
+"activation.expiry_label" = "到期时间";

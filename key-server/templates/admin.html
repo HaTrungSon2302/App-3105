@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ app_name }} · Quản lý key</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div><strong>{{ app_name }}</strong><span> Key Server</span></div>
+  <div class="top-actions">
+    <a class="button ghost" href="{{ url_for('admin_export_csv') }}">Xuất CSV</a>
+    <form method="post" action="{{ url_for('admin_logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="button ghost">Đăng xuất</button>
+    </form>
+  </div>
+</header>
+
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <section class="stats-grid">
+    <div class="stat"><span>Tổng</span><strong>{{ stats.total }}</strong></div>
+    <div class="stat active"><span>Đang chạy</span><strong>{{ stats.active }}</strong></div>
+    <div class="stat unused"><span>Chưa dùng</span><strong>{{ stats.unused }}</strong></div>
+    <div class="stat expired"><span>Hết hạn</span><strong>{{ stats.expired }}</strong></div>
+    <div class="stat disabled"><span>Đã khóa</span><strong>{{ stats.disabled }}</strong></div>
+  </section>
+
+  <section class="panel">
+    <h2>Tạo key mới</h2>
+    <form method="post" action="{{ url_for('admin_create_keys') }}" class="create-grid">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label>Prefix<input name="prefix" value="TIZI" maxlength="10"></label>
+      <label>Số lượng<input type="number" name="quantity" min="1" max="100" value="1"></label>
+      <label>Thời lượng<input type="number" name="amount" min="1" value="7"></label>
+      <label>Đơn vị
+        <select name="unit">
+          <option value="hours">Giờ</option>
+          <option value="days" selected>Ngày</option>
+          <option value="weeks">Tuần</option>
+          <option value="months">Tháng (30 ngày)</option>
+        </select>
+      </label>
+      <label>Giới hạn thiết bị<input type="number" name="max_devices" min="1" max="20" value="1"></label>
+      <label>Ghi chú<input name="note" placeholder="Khách hàng / đơn hàng..."></label>
+      <label class="checkbox"><input type="checkbox" name="starts_on_first_use" checked> Bắt đầu tính thời gian khi kích hoạt lần đầu</label>
+      <button class="primary" type="submit">Tạo key</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Danh sách key</h2>
+      <form method="get" class="filters">
+        <input name="q" value="{{ q }}" placeholder="Tìm key / ghi chú">
+        <select name="state">
+          {% for v,label in [('all','Tất cả'),('active','Đang chạy'),('unused','Chưa dùng'),('expired','Hết hạn'),('disabled','Đã khóa')] %}
+            <option value="{{ v }}" {% if state_filter==v %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+        <button class="button ghost">Lọc</button>
+      </form>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Key</th><th>Trạng thái</th><th>Thời gian</th><th>Thiết bị</th><th>Ghi chú</th><th>Thao tác</th></tr></thead>
+        <tbody>
+        {% for k in keys %}
+          <tr>
+            <td class="key-cell"><code>{{ k.key_code }}</code><button class="copy" type="button" onclick="navigator.clipboard.writeText('{{ k.key_code }}')">Copy</button><small>Tạo: {{ format_vn(k.created_at) }}</small></td>
+            <td><span class="pill {{ k.runtime_state }}">{{ {'active':'Đang chạy','unused':'Chưa dùng','expired':'Hết hạn','disabled':'Đã khóa'}[k.runtime_state] }}</span></td>
+            <td>
+              {% if k.expires_at %}<strong>{{ format_vn(k.expires_at) }}</strong><small>{% if k.remaining is not none %}Còn {{ human_duration(k.remaining) }}{% endif %}</small>{% else %}<strong>{{ human_duration(k.duration_seconds) }}</strong><small>Tính từ lần kích hoạt đầu</small>{% endif %}
+            </td>
+            <td><strong>{{ k.device_count }}/{{ k.max_devices }}</strong><small>{{ k.session_count }} phiên đang lưu</small></td>
+            <td>{{ k.note or '—' }}</td>
+            <td class="actions">
+              <form method="post" action="{{ url_for('admin_add_time', key_id=k.id) }}" class="inline-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="number" name="amount" value="1" class="mini" title="Có thể nhập số âm để trừ thời gian">
+                <select name="unit" class="mini-select"><option value="hours">giờ</option><option value="days">ngày</option><option value="weeks">tuần</option><option value="months">tháng</option></select>
+                <button class="button small">± Thời gian</button>
+              </form>
+              <form method="post" action="{{ url_for('admin_set_expiry', key_id=k.id) }}" class="inline-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="datetime-local" name="expiry" class="datetime">
+                <button class="button small">Đặt hạn</button>
+              </form>
+              <div class="action-row">
+                <form method="post" action="{{ url_for('admin_toggle_key', key_id=k.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="button small">{{ 'Mở khóa' if not k.enabled else 'Khóa' }}</button>
+                </form>
+                <form method="post" action="{{ url_for('admin_reset_devices', key_id=k.id) }}" onsubmit="return confirm('Reset toàn bộ thiết bị của key này?')">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="button small">Reset máy</button>
+                </form>
+                <form method="post" action="{{ url_for('admin_delete_key', key_id=k.id) }}" onsubmit="return confirm('Xóa vĩnh viễn key {{ k.key_code }}?')">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="button small danger">Xóa</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="empty">Không có key phù hợp.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <form method="post" action="{{ url_for('admin_delete_expired') }}" onsubmit="return confirm('Xóa toàn bộ key hết hạn?')" class="bulk-action">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="button danger">Xóa tất cả key hết hạn</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Nhật ký gần đây</h2>
+    <div class="events">
+      {% for e in recent_events %}
+        <div><time>{{ format_vn(e.created_at) }}</time><code>{{ e.key_code or 'đã xóa' }}</code><strong>{{ e.event_type }}</strong><span>{{ e.device_id }}</span><span>{{ e.detail }}</span></div>
+      {% else %}<p>Chưa có sự kiện.</p>{% endfor %}
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -494,3 +494,12 @@
 "nextdns.copy" = "Sao chép DoH";
 "nextdns.copied" = "Đã sao chép";
 "nextdns.open_dashboard" = "Mở trang quản lý NextDNS";
+
+"activation.error.not_configured" = "Chưa cấu hình địa chỉ Key Server trong Info.plist.";
+"activation.time_unknown" = "Chưa có thời gian hết hạn";
+"activation.expired" = "Key đã hết hạn";
+"home.key_expires" = "Hết hạn: %@";
+
+"activation.key_label" = "Key";
+"activation.remaining_label" = "Thời gian còn lại";
+"activation.expiry_label" = "Hết hạn lúc";

@@ -494,3 +494,12 @@
 "nextdns.copy" = "Copy DoH URL";
 "nextdns.copied" = "Copied";
 "nextdns.open_dashboard" = "Open NextDNS dashboard";
+
+"activation.error.not_configured" = "The Key Server URL is not configured in Info.plist.";
+"activation.time_unknown" = "No expiration time";
+"activation.expired" = "Key expired";
+"home.key_expires" = "Expires: %@";
+
+"activation.key_label" = "Key";
+"activation.remaining_label" = "Time remaining";
+"activation.expiry_label" = "Expires at";

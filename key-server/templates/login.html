@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập · {{ app_name }} Key Server</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="brand-badge">🔐</div>
+    <h1>{{ app_name }}</h1>
+    <p>Key Server Admin</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+    <form method="post" class="stack">
+      <input type="password" name="password" placeholder="Mật khẩu quản trị" required autofocus>
+      <button type="submit" class="primary">Đăng nhập</button>
+    </form>
+  </main>
+</body>
+</html>

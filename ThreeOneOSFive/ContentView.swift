@@ -267,13 +267,25 @@ private struct DashboardView: View {
             }
             .frame(width: 54, height: 54)
 
-            VStack(alignment: .leading, spacing: 5) {
-                Text(language.text("home.key_active"))
-                    .font(.subheadline.weight(.bold))
-                    .foregroundStyle(.white)
-                Label(language.text("home.active"), systemImage: "circle.fill")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(AppTheme.homeGreen)
+            TimelineView(.periodic(from: .now, by: 1)) { _ in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(activationManager.maskedKey)
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
+
+                    Label(activationManager.remainingText(language: language), systemImage: "clock.fill")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(AppTheme.homeGreen)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.72)
+
+                    Text(language.text("home.key_expires", activationManager.expiryDisplayText))
+                        .font(.system(size: 10.5, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.52))
+                        .lineLimit(1)
+                }
             }
 
             Spacer(minLength: 6)

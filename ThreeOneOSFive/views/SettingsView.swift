@@ -32,6 +32,17 @@ struct SettingsView: View {
                         )
                         .foregroundStyle(AppTheme.accent)
                     }
+                    LabeledContent(language.text("activation.key_label"), value: activationManager.maskedKey)
+                    TimelineView(.periodic(from: .now, by: 1)) { _ in
+                        LabeledContent(
+                            language.text("activation.remaining_label"),
+                            value: activationManager.remainingText(language: language)
+                        )
+                    }
+                    LabeledContent(
+                        language.text("activation.expiry_label"),
+                        value: activationManager.expiryDisplayText
+                    )
 
                     Button(role: .destructive) {
                         activationManager.resetActivation()
