@@ -9,6 +9,11 @@ enum AppTheme {
                 : UIColor(red: 0.37, green: 0.69, blue: 0.90, alpha: 1.00)
         }
     )
+    static let activationBackgroundTop = Color(red: 0.91, green: 0.97, blue: 1.00)
+    static let activationBackgroundMiddle = Color(red: 0.80, green: 0.92, blue: 0.99)
+    static let activationBackgroundBottom = Color(red: 0.69, green: 0.86, blue: 0.97)
+    static let activationNavy = Color(red: 0.07, green: 0.18, blue: 0.30)
+    static let activationButtonEnd = Color(red: 0.25, green: 0.58, blue: 0.86)
     static let pageBackground = Color(uiColor: .systemBackground)
     static let consoleBackground = Color(uiColor: .secondarySystemBackground)
     static let pageInset: CGFloat = 16

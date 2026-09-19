@@ -459,3 +459,20 @@
 "wallpaper.error.install" = "Cài đặt thất bại và mọi descriptor đã thêm trong lần thử này đã được rollback.";
 "wallpaper.error.restore" = "Tizi Mod không thể xóa an toàn toàn bộ descriptor của lần cài này.";
 "wallpaper.error.unknown" = "Đã xảy ra lỗi không mong muốn. Hãy kiểm tra Nhật ký phiên để biết chi tiết.";
+
+/* Kích hoạt */
+"activation.title" = "Nhập Key Kích Hoạt";
+"activation.subtitle" = "Nhập key được cấp để mở khóa Tizi Mod trên thiết bị này.";
+"activation.placeholder" = "Nhập mã key";
+"activation.button" = "Kích hoạt";
+"activation.activating" = "Đang kích hoạt…";
+"activation.error.empty" = "Vui lòng nhập key kích hoạt.";
+"activation.error.invalid" = "Key không tồn tại hoặc không hợp lệ.";
+"activation.error.server" = "Máy chủ key trả về lỗi.";
+"activation.error.network" = "Không thể kết nối máy chủ key. Kiểm tra mạng rồi thử lại.";
+"activation.footer" = "Make By ©Tizi Mod";
+"activation.settings_title" = "Kích hoạt";
+"activation.status" = "Trạng thái";
+"activation.status_active" = "Đã kích hoạt";
+"activation.reset" = "Đăng xuất key";
+"activation.reset_footer" = "Đăng xuất sẽ quay lại màn hình nhập key. Bạn cần key hợp lệ để vào lại Tizi Mod.";

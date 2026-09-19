@@ -459,3 +459,20 @@
 "wallpaper.error.install" = "安装失败，本次尝试添加的描述符已回滚。";
 "wallpaper.error.restore" = "Tizi Mod 无法安全移除此安装中的全部描述符。";
 "wallpaper.error.unknown" = "发生意外错误。请查看会话日志了解详情。";
+
+/* 激活 */
+"activation.title" = "输入激活密钥";
+"activation.subtitle" = "输入获得的密钥以在此设备上解锁 Tizi Mod。";
+"activation.placeholder" = "输入密钥";
+"activation.button" = "激活";
+"activation.activating" = "正在激活…";
+"activation.error.empty" = "请输入激活密钥。";
+"activation.error.invalid" = "密钥不存在或无效。";
+"activation.error.server" = "密钥服务器返回错误。";
+"activation.error.network" = "无法连接密钥服务器，请检查网络后重试。";
+"activation.footer" = "Make By ©Tizi Mod";
+"activation.settings_title" = "激活";
+"activation.status" = "状态";
+"activation.status_active" = "已激活";
+"activation.reset" = "退出密钥";
+"activation.reset_footer" = "退出后将返回激活页面，需要有效密钥才能再次进入 Tizi Mod。";

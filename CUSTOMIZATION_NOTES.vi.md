@@ -1,52 +1,94 @@
-# Bản chỉnh sửa Tizi Mod
+# Tizi Mod — bản có màn hình Key
 
-Bản này giữ nguyên lõi chức năng của source gốc và đã được chỉnh theo thương hiệu **Tizi Mod**.
+Bản này giữ lõi chức năng của source gốc 3105, dùng thương hiệu **Tizi Mod** và bổ sung màn hình kích hoạt bằng key trước khi vào app.
 
-## Đã chỉnh sửa
+## Giao diện key mới
 
-### 1) Bật / tắt module trong Cài đặt
-Có thể bật hoặc tắt riêng từng module sau:
+- Màu nền xanh nước biển nhạt theo theme Tizi Mod.
+- Logo Tizi Mod ở giữa phía trên.
+- Tiêu đề **Nhập Key Kích Hoạt**.
+- Ô nhập key có biểu tượng chìa khóa.
+- Báo lỗi màu đỏ khi key sai.
+- Nút **Kích hoạt** có trạng thái loading.
+- Footer `Make By ©Tizi Mod`.
+- Sau khi kích hoạt thành công, trạng thái được lưu để lần sau mở app đi thẳng vào giao diện chính.
+- Trong Cài đặt có **Đăng xuất key** để quay lại màn hình kích hoạt.
 
-- Tệp (Files)
-- Patch
-- Dọn dẹp (Cleaner)
-- Hình nền (Wallpapers)
-- Nhật ký (Logs)
+## Key test hiện tại
 
-Trang chủ và Cài đặt luôn được giữ để có thể bật lại các module đã tắt.
-Trạng thái được lưu bằng `@AppStorage`.
+Do chưa có API quản lý key thật, source đang có key test local:
 
-### 2) Đổi thương hiệu giao diện
-- Tên hiển thị app đổi thành **Tizi Mod**
-- Đổi màu chủ đạo sang **xanh nước biển nhạt**
-- Đã thay **icon app** theo ảnh bạn gửi
-- Đã đổi một số chuỗi hiển thị trong giao diện từ `3105` sang `Tizi Mod`
+```text
+TIZI-MOD-DEMO
+```
 
-## Những gì vẫn được giữ nguyên để tương thích
+Key này chỉ để test giao diện. Không nên dùng cho bản phát hành thật.
 
-- **Bundle identifier** vẫn là `com.apple.mobile.MobileHouseArrest`
-- **Định dạng patch `.3105`** vẫn được giữ nguyên
-- Các phần nhận diện kỹ thuật nội bộ liên quan tới patch / import / exploit vẫn ưu tiên tương thích với source gốc
+## Gắn API key thật
 
-## File chính đã sửa
+Mở:
 
-- `ThreeOneOSFive/views/DesignSystem.swift`
-- `ThreeOneOSFive/ContentView.swift`
-- `ThreeOneOSFive/views/AppDataBrowserView.swift`
-- `ThreeOneOSFive/views/SettingsView.swift`
-- `ThreeOneOSFive/helpers/Utils.swift`
-- `ThreeOneOSFive/Info.plist`
-- `ThreeOneOSFive/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png`
-- `ThreeOneOSFive/en.lproj/Localizable.strings`
-- `ThreeOneOSFive/vi.lproj/Localizable.strings`
-- `ThreeOneOSFive/zh-Hans.lproj/Localizable.strings`
+```text
+ThreeOneOSFive/App.swift
+```
 
-## Lưu ý build
+Tìm:
 
-Để build và cài lên iPhone, bạn vẫn cần **macOS + Xcode**.
-Nếu muốn, bước tiếp theo mình có thể giúp bạn:
+```swift
+enum ActivationConfiguration {
+    static let apiEndpointString = ""
+```
 
-- đổi tiếp tên project / scheme trong Xcode
-- đổi splash / ảnh preview / README
-- ẩn hẳn các module bạn không dùng
-- tinh chỉnh giao diện Home theo phong cách riêng của bạn
+Điền URL HTTPS của API, ví dụ:
+
+```swift
+static let apiEndpointString = "https://domain-cua-ban.com/api/activate"
+```
+
+App sẽ POST JSON dạng:
+
+```json
+{
+  "key": "TIZI-XXXX-XXXX",
+  "deviceID": "...",
+  "deviceModel": "...",
+  "appVersion": "1.0.1"
+}
+```
+
+API nên trả:
+
+```json
+{
+  "success": true,
+  "token": "token-cua-ban",
+  "message": null
+}
+```
+
+hoặc khi lỗi:
+
+```json
+{
+  "success": false,
+  "token": null,
+  "message": "Key đã hết hạn"
+}
+```
+
+## Build IPA trên GitHub Actions
+
+Workflow đã có sẵn tại:
+
+```text
+.github/workflows/build-ipa.yml
+```
+
+Upload source lên GitHub rồi chạy **Actions → Build Tizi Mod IPA → Run workflow**.
+Workflow hiện tạo IPA **unsigned**.
+
+## Các phần vẫn giữ để tương thích
+
+- Bundle ID: `com.apple.mobile.MobileHouseArrest`
+- Định dạng patch: `.3105`
+- Các phần kỹ thuật nội bộ liên quan tới patch/exploit giữ tương thích với source gốc.

@@ -4,6 +4,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appLanguage) private var language
     @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var activationManager: ActivationManager
     @AppStorage(AppLanguage.storageKey) private var languageCode = AppLanguage.english.rawValue
     @AppStorage(FeatureVisibility.filesStorageKey) private var filesEnabled = true
     @AppStorage(FeatureVisibility.patchesStorageKey) private var patchesEnabled = true
@@ -26,6 +27,25 @@ struct SettingsView: View {
                         }
                     }
                     .padding(.vertical, 4)
+                }
+
+                Section(language.text("activation.settings_title")) {
+                    LabeledContent(language.text("activation.status")) {
+                        Label(
+                            language.text("activation.status_active"),
+                            systemImage: "checkmark.seal.fill"
+                        )
+                        .foregroundStyle(AppTheme.accent)
+                    }
+
+                    Button(role: .destructive) {
+                        activationManager.resetActivation()
+                        dismiss()
+                    } label: {
+                        Label(language.text("activation.reset"), systemImage: "key.slash")
+                    }
+                } footer: {
+                    Text(language.text("activation.reset_footer"))
                 }
 
                 Section(language.text("settings.language")) {

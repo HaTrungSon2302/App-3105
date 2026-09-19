@@ -459,3 +459,20 @@
 "wallpaper.error.install" = "Installation failed and any descriptors added during this attempt were rolled back.";
 "wallpaper.error.restore" = "Tizi Mod could not safely remove every descriptor from this installation.";
 "wallpaper.error.unknown" = "An unexpected error occurred. Review Session Logs for details.";
+
+/* Activation */
+"activation.title" = "Enter Activation Key";
+"activation.subtitle" = "Enter the key you were given to unlock Tizi Mod on this device.";
+"activation.placeholder" = "Enter key";
+"activation.button" = "Activate";
+"activation.activating" = "Activating…";
+"activation.error.empty" = "Please enter an activation key.";
+"activation.error.invalid" = "Key does not exist or is invalid.";
+"activation.error.server" = "The key server returned an error.";
+"activation.error.network" = "Could not connect to the key server. Check your internet connection and try again.";
+"activation.footer" = "Make By ©Tizi Mod";
+"activation.settings_title" = "Activation";
+"activation.status" = "Status";
+"activation.status_active" = "Activated";
+"activation.reset" = "Sign out key";
+"activation.reset_footer" = "Signing out returns to the activation screen. You will need a valid key to enter Tizi Mod again.";
