@@ -6,11 +6,6 @@ struct SettingsView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var activationManager: ActivationManager
     @AppStorage(AppLanguage.storageKey) private var languageCode = AppLanguage.english.rawValue
-    @AppStorage(FeatureVisibility.filesStorageKey) private var filesEnabled = true
-    @AppStorage(FeatureVisibility.patchesStorageKey) private var patchesEnabled = true
-    @AppStorage(FeatureVisibility.cleanerStorageKey) private var cleanerEnabled = true
-    @AppStorage(FeatureVisibility.wallpapersStorageKey) private var wallpapersEnabled = true
-    @AppStorage(FeatureVisibility.logsStorageKey) private var logsEnabled = true
 
     var body: some View {
         NavigationStack {
@@ -58,28 +53,6 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                     .labelsHidden()
-                }
-
-                Section {
-                    Toggle(isOn: $filesEnabled) {
-                        Label(language.text("tab.files"), systemImage: "folder.fill")
-                    }
-                    Toggle(isOn: $patchesEnabled) {
-                        Label(language.text("tab.patches"), systemImage: "shippingbox.fill")
-                    }
-                    Toggle(isOn: $cleanerEnabled) {
-                        Label(language.text("tab.cleaner"), systemImage: "sparkles")
-                    }
-                    Toggle(isOn: $wallpapersEnabled) {
-                        Label(language.text("tab.wallpapers"), systemImage: "photo.on.rectangle.angled")
-                    }
-                    Toggle(isOn: $logsEnabled) {
-                        Label(language.text("logs.title"), systemImage: "apple.terminal")
-                    }
-                } header: {
-                    Text(language.text("dashboard.features"))
-                } footer: {
-                    Text(language.text("dashboard.features_footer"))
                 }
 
                 Section(language.text("common.device")) {

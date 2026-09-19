@@ -92,3 +92,11 @@ Workflow hiện tạo IPA **unsigned**.
 - Bundle ID: `com.apple.mobile.MobileHouseArrest`
 - Định dạng patch: `.3105`
 - Các phần kỹ thuật nội bộ liên quan tới patch/exploit giữ tương thích với source gốc.
+
+
+## Giao diện 3 tab (bản mới)
+- Thanh điều hướng chỉ còn: **Trang chủ / Patch / Next DNS**.
+- Các module Files, Cleaner và Wallpaper vẫn giữ mã nguồn lõi để Patch có thể dùng khi cần, nhưng không còn icon ở thanh tab.
+- Trang chủ được làm lại theo bố cục dashboard: logo + tên Tizi Mod, thông tin iOS/thiết bị/tương thích, lưới ứng dụng hỗ trợ, trạng thái key và nút đổi key.
+- Màu giao diện dashboard: nền navy đậm kết hợp xanh nước biển nhạt/cyan theo nhận diện Tizi Mod.
+- Next DNS có ô lưu Profile ID, tạo địa chỉ DoH và nút sao chép/mở dashboard NextDNS.

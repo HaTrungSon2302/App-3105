@@ -476,3 +476,21 @@
 "activation.status_active" = "Activated";
 "activation.reset" = "Sign out key";
 "activation.reset_footer" = "Signing out returns to the activation screen. You will need a valid key to enter Tizi Mod again.";
+
+/* Tizi Mod 3-tab home */
+"tab.nextdns" = "Next DNS";
+"home.subtitle" = "iOS toolkit · Simple · Stable";
+"home.ios_version" = "iOS version";
+"home.device" = "Device";
+"home.support" = "Support";
+"home.supported_apps" = "SUPPORTED APPS";
+"home.patch_action" = "OPEN PATCH";
+"home.key_active" = "Activation key";
+"home.active" = "Active";
+"home.change_key" = "CHANGE KEY";
+"nextdns.subtitle" = "Save your NextDNS profile and quickly copy its DoH endpoint.";
+"nextdns.profile_id" = "Profile ID";
+"nextdns.doh" = "DNS-over-HTTPS endpoint";
+"nextdns.copy" = "Copy DoH URL";
+"nextdns.copied" = "Copied";
+"nextdns.open_dashboard" = "Open NextDNS dashboard";

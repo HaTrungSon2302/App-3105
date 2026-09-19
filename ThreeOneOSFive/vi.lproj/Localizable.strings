@@ -476,3 +476,21 @@
 "activation.status_active" = "Đã kích hoạt";
 "activation.reset" = "Đăng xuất key";
 "activation.reset_footer" = "Đăng xuất sẽ quay lại màn hình nhập key. Bạn cần key hợp lệ để vào lại Tizi Mod.";
+
+/* Trang chủ Tizi Mod 3 tab */
+"tab.nextdns" = "Next DNS";
+"home.subtitle" = "Công cụ iOS · Gọn gàng · Ổn định";
+"home.ios_version" = "Phiên bản iOS";
+"home.device" = "Thiết bị";
+"home.support" = "Hỗ trợ";
+"home.supported_apps" = "ỨNG DỤNG HỖ TRỢ";
+"home.patch_action" = "MỞ PATCH";
+"home.key_active" = "Key đã kích hoạt";
+"home.active" = "Đang hoạt động";
+"home.change_key" = "ĐỔI KEY";
+"nextdns.subtitle" = "Lưu Profile ID NextDNS và sao chép nhanh địa chỉ DNS-over-HTTPS.";
+"nextdns.profile_id" = "Profile ID";
+"nextdns.doh" = "Địa chỉ DNS-over-HTTPS";
+"nextdns.copy" = "Sao chép DoH";
+"nextdns.copied" = "Đã sao chép";
+"nextdns.open_dashboard" = "Mở trang quản lý NextDNS";

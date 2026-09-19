@@ -476,3 +476,21 @@
 "activation.status_active" = "已激活";
 "activation.reset" = "退出密钥";
 "activation.reset_footer" = "退出后将返回激活页面，需要有效密钥才能再次进入 Tizi Mod。";
+
+/* Tizi Mod 三标签主页 */
+"tab.nextdns" = "Next DNS";
+"home.subtitle" = "iOS 工具 · 简洁 · 稳定";
+"home.ios_version" = "iOS 版本";
+"home.device" = "设备";
+"home.support" = "支持";
+"home.supported_apps" = "支持的应用";
+"home.patch_action" = "打开补丁";
+"home.key_active" = "已激活 Key";
+"home.active" = "运行中";
+"home.change_key" = "更换 KEY";
+"nextdns.subtitle" = "保存 NextDNS Profile ID，并快速复制 DoH 地址。";
+"nextdns.profile_id" = "Profile ID";
+"nextdns.doh" = "DNS-over-HTTPS 地址";
+"nextdns.copy" = "复制 DoH";
+"nextdns.copied" = "已复制";
+"nextdns.open_dashboard" = "打开 NextDNS 控制台";

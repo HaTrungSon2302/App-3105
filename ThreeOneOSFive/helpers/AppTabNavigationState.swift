@@ -6,39 +6,23 @@ enum AppSection: Int, CaseIterable, Identifiable {
     case patches
     case cleaner
     case wallpapers
+    case nextDNS
 
     var id: Int { rawValue }
 }
 
 struct FeatureVisibility: Equatable {
+    // Legacy keys are kept so upgrades do not lose previous preferences.
     static let filesStorageKey = "feature.files.enabled"
     static let patchesStorageKey = "feature.patches.enabled"
     static let cleanerStorageKey = "feature.cleaner.enabled"
     static let wallpapersStorageKey = "feature.wallpapers.enabled"
     static let logsStorageKey = "feature.logs.enabled"
 
-    let filesEnabled: Bool
-    let patchesEnabled: Bool
-    let cleanerEnabled: Bool
-    let wallpapersEnabled: Bool
-
-    var visibleSections: [AppSection] {
-        AppSection.allCases.filter(isVisible)
-    }
+    var visibleSections: [AppSection] { [.home, .patches, .nextDNS] }
 
     func isVisible(_ section: AppSection) -> Bool {
-        switch section {
-        case .home:
-            return true
-        case .files:
-            return filesEnabled
-        case .patches:
-            return patchesEnabled
-        case .cleaner:
-            return cleanerEnabled
-        case .wallpapers:
-            return wallpapersEnabled
-        }
+        visibleSections.contains(section)
     }
 }
 
