@@ -3,7 +3,12 @@
 <plist version="1.0">
 <dict>
     <key>TiziKeyServerURL</key>
-    <string>https://YOUR-DOMAIN.com</string>
+    <string>http://193.186.4.135:8000</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>

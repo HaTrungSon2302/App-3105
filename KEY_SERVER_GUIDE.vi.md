@@ -176,3 +176,26 @@ Trả về:
 - Dùng mật khẩu admin dài, khác các mật khẩu khác.
 - Backup thư mục `data/` định kỳ.
 - Key/license kiểm tra ở client vẫn có thể bị người có kỹ năng reverse-engineer bỏ qua; server-side validation, token ngẫu nhiên và kiểm tra trạng thái định kỳ chỉ làm việc bypass khó hơn, không thể bảo đảm tuyệt đối.
+
+
+## Lỗi Windows `No time zone found with key Asia/Ho_Chi_Minh`
+
+Bản FIXED đã thêm gói `tzdata` và có fallback UTC+7. Nếu đang dùng bản cũ, chạy trong thư mục `key-server`:
+
+```bat
+.venv\Scripts\activate
+python -m pip install tzdata
+python app.py
+```
+
+## Cấu hình test bằng IP public
+
+Bản này đã được cấu hình sẵn để app gọi Key Server tại:
+
+```text
+http://193.186.4.135:8000
+```
+
+Đây là cấu hình **HTTP chỉ để test**. Key và token đi qua mạng không được mã hóa. Khi dùng thật, hãy chuyển sang domain HTTPS và bỏ `NSAllowsArbitraryLoads` khỏi `Info.plist`.
+
+Server Python đã lắng nghe `0.0.0.0:8000`. Nếu server chạy trên Windows ở mạng nhà, cần mở TCP 8000 trong Windows Firewall và port-forward TCP 8000 trên router về IP LAN của máy Windows.

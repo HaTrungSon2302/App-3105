@@ -59,8 +59,18 @@ enum ActivationConfiguration {
 #if DEBUG
         return url
 #else
-        guard url.scheme?.lowercased() == "https" else { return nil }
-        return url
+        // Bản test IP: cho phép HTTP duy nhất tới Key Server đã cấu hình.
+        // Khi chuyển sang domain thật, nên đổi lại HTTPS và bỏ ngoại lệ ATS trong Info.plist.
+        let scheme = url.scheme?.lowercased()
+        if scheme == "https" {
+            return url
+        }
+        if scheme == "http",
+           url.host == "193.186.4.135",
+           url.port == 8000 {
+            return url
+        }
+        return nil
 #endif
     }
 

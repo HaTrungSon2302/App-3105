@@ -111,3 +111,20 @@ Bản này bổ sung thư mục `key-server/` và kết nối app với server k
 - Sửa `TiziKeyServerURL` trong `ThreeOneOSFive/Info.plist` thành domain HTTPS của server trước khi build bản Release.
 
 Xem `KEY_SERVER_GUIDE.vi.md` để cài server.
+
+
+## Lỗi Windows `No time zone found with key Asia/Ho_Chi_Minh`
+
+Bản FIXED đã thêm gói `tzdata` và có fallback UTC+7. Nếu đang dùng bản cũ, chạy trong thư mục `key-server`:
+
+```bat
+.venv\Scripts\activate
+python -m pip install tzdata
+python app.py
+```
+
+
+## Key Server test IP
+- App đã đặt `TiziKeyServerURL = http://193.186.4.135:8000`.
+- Release cho phép HTTP duy nhất tới IP/port này ở tầng kiểm tra URL.
+- `Info.plist` bật ATS arbitrary loads để iOS cho phép HTTP IP literal; chỉ nên dùng cho giai đoạn test.

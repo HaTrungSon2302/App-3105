@@ -9,7 +9,7 @@ import string
 from datetime import datetime, timedelta, timezone
 from functools import wraps
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from dotenv import load_dotenv
 from flask import (
@@ -32,7 +32,11 @@ BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = Path(os.getenv("DATABASE_PATH", str(BASE_DIR / "data" / "keys.db")))
 DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-VN_TZ = ZoneInfo("Asia/Ho_Chi_Minh")
+try:
+    VN_TZ = ZoneInfo("Asia/Ho_Chi_Minh")
+except ZoneInfoNotFoundError:
+    # Windows may not ship the IANA timezone database. UTC+7 has no DST in Vietnam.
+    VN_TZ = timezone(timedelta(hours=7), name="Asia/Ho_Chi_Minh")
 UTC = timezone.utc
 
 app = Flask(__name__)
