@@ -29,7 +29,7 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
 
-                Section(language.text("activation.settings_title")) {
+                Section {
                     LabeledContent(language.text("activation.status")) {
                         Label(
                             language.text("activation.status_active"),
@@ -44,6 +44,8 @@ struct SettingsView: View {
                     } label: {
                         Label(language.text("activation.reset"), systemImage: "key.slash")
                     }
+                } header: {
+                    Text(language.text("activation.settings_title"))
                 } footer: {
                     Text(language.text("activation.reset_footer"))
                 }
